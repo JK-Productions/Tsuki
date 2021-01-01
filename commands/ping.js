@@ -5,7 +5,7 @@ module.exports = {
     const timeTaken = Date.now() - message.createdTimestamp;
     message.reply(`Pong! This message had a latency of ${timeTaken}ms.`);
   },
-  pingUser: (message,args) => {
+  pingUser: (message, args) => {
     var sender = message.author;
     message.channel.send(`${sender} Is Trying to Contact ${args}`)
   }
