@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 // Commands
+const help = require('./commands/help');
 const ping = require('./commands/ping');
 const music = require('./commands/music');
 
@@ -19,7 +20,10 @@ client.on("message", async message => {
   const commandBody = message.content.slice(prefix.length);
   const args = commandBody.split(' ');
   const command = args.shift().toLowerCase();
-  if (command === "ping") {
+  if (command === "help"){
+    help.help(message);
+  }
+  else if (command === "ping") {
     if(args.length === 0){
       ping.ping(message);
     }
@@ -27,8 +31,11 @@ client.on("message", async message => {
       ping.pingUser(message, args);
     }
   }
-  if (command === "play") {
+  else if (command === "play") {
     music.play(args);
+  }
+  else{
+    message.reply(`Do '~help for list of commands'`);
   }
 });
 
