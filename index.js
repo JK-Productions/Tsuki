@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const help = require('./commands/help');
 const ping = require('./commands/ping');
 const music = require('./commands/music');
+const league = require('./commands/league');
 
 const prefix = "~";
 
@@ -32,7 +33,10 @@ client.on("message", async message => {
     }
   }
   else if (command === "play") {
-    music.play(args);
+    music.play(message, args);
+  }
+  else if (command === "lol"){
+    league.profile(message, args);
   }
   else{
     message.reply(`Do '~help for list of commands'`);
@@ -44,5 +48,5 @@ try {
   console.log("Bot is Online and Working");
 } catch (error) {
   console.log("Error Connecting With Bot: Problem With Token. Error Below.");
-  console.log(Error);
+  console.log(error);
 }
