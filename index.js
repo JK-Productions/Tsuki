@@ -3,6 +3,7 @@ const client = new Discord.Client();
 
 // Commands
 const ping = require('./commands/ping');
+const music = require('./commands/music');
 
 const prefix = "~";
 
@@ -26,7 +27,9 @@ client.on("message", async message => {
       ping.pingUser(message, args);
     }
   }
-
+  if (command === "play") {
+    music.play(args);
+  }
 });
 
 try {
