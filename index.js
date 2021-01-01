@@ -6,6 +6,7 @@ const help = require('./commands/help');
 const ping = require('./commands/ping');
 const music = require('./commands/music');
 const league = require('./commands/league');
+const bot = require('./commands/bot');
 
 const prefix = "~";
 
@@ -37,6 +38,9 @@ client.on("message", async message => {
   }
   else if (command === "lol"){
     league.profile(message, args);
+  }
+  else if (command === "annouce"){
+    bot.announce(message, args);
   }
   else{
     message.reply(`Do '~help for list of commands'`);
