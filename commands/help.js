@@ -1,7 +1,7 @@
 module.exports = {
   name: 'help',
   desciption: 'list of commands',
-  help: (message) =>  {
+  execute(message) {
     message.reply(`
       List of Commands:
       1.help - What you are seeing now
