@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'league',
+  name: 'lol',
   desciption: 'league of legends functions',
   execute(message, args){
     message.channel.send(`profile of ${args}`)

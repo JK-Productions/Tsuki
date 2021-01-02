@@ -1,18 +1,19 @@
-const fs = require('fs');
-const Discord = require("discord.js");
-const {prefix} = require("./config.json");
+const fs = require('fs'); // Used to Dynamically Access Files
+const Discord = require("discord.js"); // Discord's API
+const {prefix} = require("./config.json"); // Config File, Customizable Stuff
 
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
+const client = new Discord.Client(); // Access client using Discord API
+client.commands = new Discord.Collection(); // Used to setup commands
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // Get Commands from ./commands
 
-// Commands
+// Setting Commands
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
 
+// Bot is ready
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
