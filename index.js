@@ -1,5 +1,8 @@
 const Discord = require("discord.js");
+const {prefix} = require("./config.json");
+
 const client = new Discord.Client();
+client.commands = new Discord.Collection();
 
 // Commands
 const help = require('./commands/help');
@@ -8,20 +11,16 @@ const music = require('./commands/music');
 const league = require('./commands/league');
 const bot = require('./commands/bot');
 
-const prefix = "~";
-
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
 // https://discord.js.org/#/docs/main/stable/general/welcome
-client.on("message", async message => {
-  if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
-
-  const commandBody = message.content.slice(prefix.length);
-  const args = commandBody.split(' ');
+client.on("message", message => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
+  
   if (command === "help"){
     help.help(message);
   }
