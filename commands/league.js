@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'league of legends',
+  name: 'league',
   desciption: 'league of legends functions',
-  profile: (message, args) => {
+  execute(message, args){
     message.channel.send(`profile of ${args}`)
-  }
+  },
 };

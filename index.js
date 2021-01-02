@@ -1,15 +1,17 @@
+const fs = require('fs');
 const Discord = require("discord.js");
 const {prefix} = require("./config.json");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
 // Commands
-const help = require('./commands/help');
-const ping = require('./commands/ping');
-const music = require('./commands/music');
-const league = require('./commands/league');
-const bot = require('./commands/bot');
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.name, command);
+}
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -21,35 +23,18 @@ client.on("message", message => {
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
   
-  if (command === "help"){
-    help.help(message);
-  }
-  else if (command === "ping") {
-    if(args.length === 0){
-      ping.ping(message);
-    }
-    else{
-      ping.pingUser(message, args);
-    }
-  }
-  else if (command === "play") {
-    music.play(message, args);
-  }
-  else if (command === "lol"){
-    league.profile(message, args);
-  }
-  else if (command === "annouce"){
-    bot.announce(message, args);
-  }
-  else{
+  if (!client.commands.has(command)){
     message.reply(`Do '~help for list of commands'`);
+    return;
+  };
+
+  try {
+		client.commands.get(command).execute(message, args);
+	} catch (error) {
+		console.error(error);
+		message.reply('there was an error trying to execute that command!');
   }
+  
 });
 
-try {
-  client.login(process.env.BOT_TOKEN);
-  console.log("Bot is Online and Working");
-} catch (error) {
-  console.log("Error Connecting With Bot: Problem With Token. Error Below.");
-  console.log(error);
-}
+client.login(process.env.BOT_TOKEN);
