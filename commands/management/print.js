@@ -1,6 +1,6 @@
 module.exports = {
-  name: 'bot',
-  desciption: 'certain bot functions',
+  name: 'print',
+  desciption: 'make bot say something',
   execute(message, args){
     message.channel.send(`${args}`)
   }

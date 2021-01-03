@@ -5,11 +5,31 @@ const {prefix} = require("./config.json"); // Config File, Customizable Stuff
 const client = new Discord.Client(); // Access client using Discord API
 client.commands = new Discord.Collection(); // Used to setup commands
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); // Get Commands from ./commands
+const botFiles = fs.readdirSync('./commands/bot').filter(file => file.endsWith('.js')); // Get Commands from ./commands/bot
+const managementFiles = fs.readdirSync('./commands/management').filter(file => file.endsWith('.js')); // Get Commands from ./commands/management
+const moneyFiles = fs.readdirSync('./commands/money').filter(file => file.endsWith('.js')); // Get Commands from ./commands/money
+const musicFiles = fs.readdirSync('./commands/music').filter(file => file.endsWith('.js')); // Get Commands from ./commands/music
+const otherFiles = fs.readdirSync('./commands/other').filter(file => file.endsWith('.js')); // Get Commands from ./commands/other
 
 // Setting Commands
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
+for (const file of botFiles) {
+	const command = require(`./commands/bot/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of managementFiles) {
+	const command = require(`./commands/management/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of moneyFiles) {
+	const command = require(`./commands/money/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of musicFiles) {
+	const command = require(`./commands/music/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of otherFiles) {
+	const command = require(`./commands/other/${file}`);
 	client.commands.set(command.name, command);
 }
 
