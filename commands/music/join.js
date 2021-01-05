@@ -1,7 +1,7 @@
 module.exports = {
   name: 'join',
 	description: 'Join the voice channel you\'re currently in.',
-	aliases: ['j'],
+	aliases: ['j','connect'],
   execute(message){
     // Join the same voice channel of the author of the message
     if (message.member.voice.channel) {
